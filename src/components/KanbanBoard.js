@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import KanbanColumn from './KanbanColumn';
-import './KanbanBoard.css';
+import React, { useState, useEffect } from "react";
+import KanbanColumn from "./KanbanColumn";
+import "./KanbanBoard.css";
 
 function KanbanBoard() {
   const [tickets, setTickets] = useState([]);
-  const [grouping, setGrouping] = useState('status'); // Group by status initially
+  const [grouping, setGrouping] = useState("status"); // Group by status initially
 
   useEffect(() => {
     // Fetch tickets from the provided API
-    fetch('https://api.quicksell.co/v1/internal/frontend-assignment')
-      .then(response => response.json())
-      .then(data => setTickets(data.tickets));
+    fetch("https://api.quicksell.co/v1/internal/frontend-assignment")
+      .then((response) => response.json())
+      .then((data) => setTickets(data.tickets));
   }, []);
 
   const handleGroupingChange = (event) => {
     const newGrouping = event.target.value;
     setGrouping(newGrouping);
-    localStorage.setItem('grouping', newGrouping); // Save to localStorage
+    localStorage.setItem("grouping", newGrouping); // Save to localStorage
   };
 
   return (
