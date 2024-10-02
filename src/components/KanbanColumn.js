@@ -9,8 +9,9 @@ import LowIcon from '../assets/icons/img-low-priority.svg';
 import MediumIcon from '../assets/icons/img-medium-priority.svg';
 import HighIcon from '../assets/icons/img-high-priority.svg';
 import UrgentIcon from '../assets/icons/svg-urgent-priority-colour.svg';
+import CancelIcon from '../assets/icons/Cancelled.svg';
 
-
+// Priority mapping with icons and names
 const priorityIcons = {
   4: UrgentIcon,
   3: HighIcon,
@@ -27,13 +28,15 @@ const priorityNames = {
   0: "No priority",
 };
 
+// All statuses with icons
 const allStatuses = ['Backlog', 'Todo', 'In progress', 'Done', 'Canceled'];
 
 const statusIcons = {
+  "Backlog": BacklogIcon,
   "Todo": TodoIcon,
   "In progress": InProgressIcon,
   "Done": DoneIcon,
-  "Backlog": BacklogIcon,
+  "Canceled": CancelIcon, 
 };
 
 function KanbanColumn({ tickets, users, grouping, ordering }) {
@@ -67,40 +70,53 @@ function KanbanColumn({ tickets, users, grouping, ordering }) {
   
   const priorityOrder = [0, 4, 3, 2, 1];
 
-  return (
-    <div className="kanban-columns">
-      {Object.keys(groupedTickets)
+  const renderColumns = () => {
+    if (grouping === 'status') {
+      return allStatuses.map((status) => {
+        const group = groupedTickets[status] || { tickets: [], count: 0 };
+        return renderColumn(status, group, 'status');
+      });
+    } else {
+      return Object.keys(groupedTickets)
         .sort((a, b) => {
           if (grouping === 'priority') {
             return priorityOrder.indexOf(parseInt(a)) - priorityOrder.indexOf(parseInt(b));
           }
           return a.localeCompare(b);
         })
-        .map((group) => (
-          <div className="kanban-column" key={group}>
-            <div className="kanban-column-header">
-              {grouping === 'priority' && (
-                <img src={priorityIcons[group]} alt="Priority" className="priority-icon" />
-              )}
-              {grouping === 'status' && (
-                <img src={statusIcons[group]} alt={group} className="status-icon" />
-              )}
-              {grouping === 'user' && (
-                <span className="user-icon">{group[0].toUpperCase()}</span>
-              )}
-              <h2>{grouping === 'priority' ? priorityNames[group] : group} ({groupedTickets[group].count})</h2>
-              <div className="header-icons">
-                <span>+</span>
-                <span>⋯</span>
-              </div>
-            </div>
-            <div className="kanban-cards">
-              {sortTickets(groupedTickets[group].tickets).map((ticket) => (
-                <KanbanCard key={ticket.id} ticket={ticket} users={users} />
-              ))}
-            </div>
-          </div>
+        .map((group) => renderColumn(group, groupedTickets[group], grouping));
+    }
+  };
+
+  const renderColumn = (group, groupData, columnType) => (
+    <div className="kanban-column" key={group}>
+      <div className="kanban-column-header">
+        {columnType === 'priority' && (
+          <img src={priorityIcons[group]} alt="Priority" className="priority-icon" />
+        )}
+        {columnType === 'status' && statusIcons[group] && (
+          <img src={statusIcons[group]} alt={group} className="status-icon" />
+        )}
+        {columnType === 'user' && (
+          <span className="user-icon">{group[0].toUpperCase()}</span>
+        )}
+        <h2>{columnType === 'priority' ? priorityNames[group] : group} ({groupData.count})</h2>
+        <div className="header-icons">
+          <span>+</span>
+          <span>⋯</span>
+        </div>
+      </div>
+      <div className="kanban-cards">
+        {sortTickets(groupData.tickets).map((ticket) => (
+          <KanbanCard key={ticket.id} ticket={ticket} users={users} />
         ))}
+      </div>
+    </div>
+  );
+
+  return (
+    <div className="kanban-columns">
+      {renderColumns()}
     </div>
   );
 }
