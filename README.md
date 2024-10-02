@@ -22,11 +22,8 @@ This project is an interactive Kanban board application built using React JS. It
     npm install
     ```
 ## Running the Project
-
-    ```
     npm start
-    ```
-    Project is live [here.](https://quicksell-kanban-board-pranav.vercel.app/)
+   Project is live [here.](https://quicksell-kanban-board-pranav.vercel.app/)
 
 ## Features
 
