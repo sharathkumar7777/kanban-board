@@ -1,3 +1,4 @@
+// Updated KanbanColumn.js
 import React from 'react';
 import KanbanCard from './KanbanCard';
 import { ReactComponent as NoPriorityIcon } from '../assets/icons/No-priority.svg';
