@@ -1,4 +1,3 @@
-// Updated KanbanColumn.js
 import React from 'react';
 import KanbanCard from './KanbanCard';
 import { ReactComponent as NoPriorityIcon } from '../assets/icons/No-priority.svg';
@@ -6,6 +5,14 @@ import { ReactComponent as UrgentIcon } from '../assets/icons/svg-urgent-priorit
 import { ReactComponent as HighPriorityIcon } from '../assets/icons/img-high-priority.svg';
 import { ReactComponent as MediumPriorityIcon } from '../assets/icons/img-medium-priority.svg';
 import { ReactComponent as LowPriorityIcon } from '../assets/icons/img-low-priority.svg';
+
+// Example user mapping
+const userMapping = {
+  'usr-1': 'User 1',
+  'usr-2': 'User 2',
+  'usr-5': 'User 5',
+  // Add more user IDs to user name mappings as needed
+};
 
 const icons = {
   'No priority': <NoPriorityIcon />,
@@ -18,7 +25,15 @@ const icons = {
 function KanbanColumn({ tickets, grouping, ordering }) {
   const groupBy = (key, array) => {
     return array.reduce((result, current) => {
-      const group = current[key] || 'No Group';
+      let group;
+      if (key === 'user') {
+        // Use the userMapping to resolve the user name from the userId
+        group = userMapping[current.userId] || 'No Group';
+      } else {
+        // Group by status, priority, etc.
+        group = current[key] || 'No Group';
+      }
+
       if (!result[group]) {
         result[group] = [];
       }
