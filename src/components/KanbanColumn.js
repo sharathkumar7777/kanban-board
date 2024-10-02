@@ -1,52 +1,39 @@
 import React from 'react';
 import KanbanCard from './KanbanCard';
-import { ReactComponent as NoPriorityIcon } from '../assets/icons/No-priority.svg';
-import { ReactComponent as UrgentIcon } from '../assets/icons/svg-urgent-priority-colour.svg';
-import { ReactComponent as HighPriorityIcon } from '../assets/icons/img-high-priority.svg';
-import { ReactComponent as MediumPriorityIcon } from '../assets/icons/img-medium-priority.svg';
-import { ReactComponent as LowPriorityIcon } from '../assets/icons/img-low-priority.svg';
-import { ReactComponent as InProgressIcon } from '../assets/icons/in-progress.svg'; // Example status icon
-import { ReactComponent as DoneIcon } from '../assets/icons/Done.svg'; // Example status icon
-import { ReactComponent as ToDoIcon } from '../assets/icons/To-do.svg'; // Example status icon
 
-// Priority mapping with icons and names
-const priorityMapping = {
-  0: { name: 'No priority', icon: <NoPriorityIcon /> },
-  4: { name: 'Urgent', icon: <UrgentIcon /> },
-  3: { name: 'High', icon: <HighPriorityIcon /> },
-  2: { name: 'Medium', icon: <MediumPriorityIcon /> },
-  1: { name: 'Low', icon: <LowPriorityIcon /> },
+const priorityIcons = {
+  4: "🔴", // Urgent
+  3: "🔺", // High
+  2: "🟠", // Medium
+  1: "🔹", // Low
+  0: "⚪", // No priority
 };
 
-// Status mapping with icons and names
-const statusMapping = {
-  'Todo': { name: 'Todo', icon: <ToDoIcon /> },
-  'In progress': { name: 'In Progress', icon: <InProgressIcon /> },
-  'Done': { name: 'Done', icon: <DoneIcon /> },
-  // Add more statuses as needed
+const priorityNames = {
+  4: "Urgent",
+  3: "High",
+  2: "Medium",
+  1: "Low",
+  0: "No priority",
 };
 
-// Sort priorities in the desired order
-const priorityOrder = [0, 4, 3, 2, 1];
+const statusIcons = {
+  "Todo": "○",
+  "In progress": "◔",
+  "Done": "●",
+};
 
-function KanbanColumn({ tickets, grouping, ordering }) {
+function KanbanColumn({ tickets, users, grouping, ordering }) {
   const groupBy = (key, array) => {
     return array.reduce((result, current) => {
-      let group;
-
-      // Handle different groupings
-      if (key === 'priority') {
-        group = current.priority; // Group by priority
-      } else if (key === 'status') {
-        group = current.status || 'No Group'; // Group by status
-      } else if (key === 'user') {
-        group = current.userId || 'No Group'; // Group by userId or assign to 'No Group'
-      } else {
-        group = current[key] || 'No Group'; // Group by any other key
+      let group = current[key];
+      if (key === 'userId') {
+        group = users.find(user => user.id === current.userId)?.name || 'Unassigned';
+      } else if (key === 'priority') {
+        group = current.priority;
       }
-
       if (!result[group]) {
-        result[group] = { tickets: [], count: 0 }; // Initialize group with tickets and count
+        result[group] = { tickets: [], count: 0 };
       }
       result[group].tickets.push(current);
       result[group].count += 1;
@@ -56,53 +43,51 @@ function KanbanColumn({ tickets, grouping, ordering }) {
 
   const sortTickets = (ticketsArray) => {
     if (ordering === 'priority') {
-      return ticketsArray.sort((a, b) => b.priority - a.priority); // Sort by priority (descending)
+      return ticketsArray.sort((a, b) => b.priority - a.priority);
     } else if (ordering === 'title') {
-      return ticketsArray.sort((a, b) => a.title.localeCompare(b.title)); // Sort by title (ascending)
+      return ticketsArray.sort((a, b) => a.title.localeCompare(b.title));
     }
     return ticketsArray;
   };
 
-  const groupedTickets = groupBy(grouping, tickets);
+  const groupedTickets = groupBy(grouping === 'user' ? 'userId' : grouping, tickets);
+  const priorityOrder = [4, 3, 2, 1, 0];
 
   return (
-    <div className="kanban-columns">
+    <>
       {Object.keys(groupedTickets)
         .sort((a, b) => {
           if (grouping === 'priority') {
             return priorityOrder.indexOf(parseInt(a)) - priorityOrder.indexOf(parseInt(b));
           }
-          return a.localeCompare(b); // Default sort for non-priority groupings
+          return a.localeCompare(b);
         })
-        .map((group) => {
-          const isPriorityGrouping = grouping === 'priority';
-          const isStatusGrouping = grouping === 'status';
-
-          // Determine group name and icon based on grouping type
-          const groupName = isPriorityGrouping
-            ? priorityMapping[group]?.name || 'No Group'
-            : isStatusGrouping
-            ? statusMapping[group]?.name || group // Display the status name or fallback to group
-            : group; // For user grouping, it will show the `userId`
-
-          const groupIcon = isPriorityGrouping
-            ? priorityMapping[group]?.icon
-            : isStatusGrouping
-            ? statusMapping[group]?.icon
-            : null;
-
-          return (
-            <div className="kanban-column" key={group}>
-              <h2>
-                {groupIcon} {groupName} ({groupedTickets[group].count})
-              </h2>
+        .map((group) => (
+          <div className="kanban-column" key={group}>
+            <div className="kanban-column-header">
+              {grouping === 'priority' && (
+                <span className="priority-icon">{priorityIcons[group]}</span>
+              )}
+              {grouping === 'status' && (
+                <span className="status-icon">{statusIcons[group]}</span>
+              )}
+              {grouping === 'user' && (
+                <span className="user-icon">{group[0].toUpperCase()}</span>
+              )}
+              <h2>{grouping === 'priority' ? priorityNames[group] : group} ({groupedTickets[group].count})</h2>
+              <div className="header-icons">
+                <span>+</span>
+                <span>⋯</span>
+              </div>
+            </div>
+            <div className="kanban-cards">
               {sortTickets(groupedTickets[group].tickets).map((ticket) => (
-                <KanbanCard key={ticket.id} ticket={ticket} />
+                <KanbanCard key={ticket.id} ticket={ticket} users={users} />
               ))}
             </div>
-          );
-        })}
-    </div>
+          </div>
+        ))}
+    </>
   );
 }
 
