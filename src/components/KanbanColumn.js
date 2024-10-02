@@ -1,5 +1,6 @@
 import React from 'react';
 import KanbanCard from './KanbanCard';
+import BacklogIcon from '../assets/icons/Backlog.svg';
 import DoneIcon from '../assets/icons/Done.svg';
 import InProgressIcon from '../assets/icons/in-progress.svg';
 import TodoIcon from '../assets/icons/To-do.svg';
@@ -8,6 +9,7 @@ import LowIcon from '../assets/icons/img-low-priority.svg';
 import MediumIcon from '../assets/icons/img-medium-priority.svg';
 import HighIcon from '../assets/icons/img-high-priority.svg';
 import UrgentIcon from '../assets/icons/svg-urgent-priority-colour.svg';
+
 
 const priorityIcons = {
   4: UrgentIcon,
@@ -29,6 +31,7 @@ const statusIcons = {
   "Todo": TodoIcon,
   "In progress": InProgressIcon,
   "Done": DoneIcon,
+  "Backlog": BacklogIcon,
 };
 
 function KanbanColumn({ tickets, users, grouping, ordering }) {
@@ -77,7 +80,7 @@ function KanbanColumn({ tickets, users, grouping, ordering }) {
                 <img src={priorityIcons[group]} alt="Priority" className="priority-icon" />
               )}
               {grouping === 'status' && (
-                <img src={statusIcons[group]} alt="Status" className="status-icon" />
+                <img src={statusIcons[group]} alt={group} className="status-icon" />
               )}
               {grouping === 'user' && (
                 <span className="user-icon">{group[0].toUpperCase()}</span>

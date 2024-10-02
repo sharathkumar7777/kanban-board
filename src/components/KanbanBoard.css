@@ -146,6 +146,12 @@ body {
   font-size: 12px;
 }
 
+.kanban-column-header img.status-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 8px;
+}
+
 @media (max-width: 1400px) {
   .kanban-columns {
     flex-wrap: wrap;
