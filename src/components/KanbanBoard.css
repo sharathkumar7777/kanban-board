@@ -1,20 +1,18 @@
 /* Kanban Board Container */
 .kanban-board {
   display: flex;
-  justify-content: space-between; /* Space out the columns */
+  justify-content: flex-start; /* Align columns to the start */
   gap: 20px; /* Space between columns */
   padding: 20px;
   overflow-x: auto; /* Allow horizontal scrolling */
   background-color: #f9fafb; /* Slightly lighter background */
   min-height: 100vh;
-  flex-wrap: wrap; /* Allow columns to wrap if necessary */
 }
 
 /* Kanban Columns */
 .kanban-columns {
   display: flex;
   gap: 20px; /* Add space between columns */
-  flex-wrap: wrap; /* Allow columns to wrap */
 }
 
 /* Kanban Column Styling */
@@ -23,11 +21,9 @@
   border-radius: 10px; /* Rounded corners */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
   padding: 15px;
-  min-width: 280px; /* Ensure columns are wide enough */
-  flex-grow: 1; /* Allow columns to grow and take full space */
-  max-width: 300px; /* Prevent columns from being too wide */
-  flex-shrink: 1; /* Allow shrinking for smaller screens */
-  box-sizing: border-box; /* Ensure padding is part of width calculation */
+  min-width: 240px; /* Adjust column width */
+  max-width: 260px; /* Prevent columns from being too wide */
+  flex-shrink: 0; /* Prevent columns from shrinking */
 }
 
 /* Column Titles */
@@ -49,6 +45,10 @@
   margin-bottom: 15px; /* Space between cards */
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
   cursor: pointer; /* Change cursor to pointer */
+  height: 150px; /* Fix card height for consistency */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .kanban-card:hover {
@@ -56,29 +56,24 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow on hover */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .kanban-board {
-    flex-direction: column; /* Stack columns on smaller screens */
-  }
-
-  .kanban-column {
-    max-width: 100%; /* Allow columns to take full width */
-  }
+/* Card Title */
+.kanban-card h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 10px;
 }
 
-/* Tag styling inside the kanban card */
-.kanban-card-tag {
-  margin-top: 10px;
+/* Card Description */
+.kanban-card p {
+  font-size: 14px;
+  color: #555;
 }
 
-.kanban-card-tag-label {
-  background-color: #f0f4f8; /* Light background color for the tag */
-  color: #333;
-  font-size: 12px;
-  font-weight: 500;
-  padding: 5px 10px;
-  border-radius: 5px;
-  display: inline-block;
-  margin-right: 5px;
+/* Consistent Card Heights */
+.kanban-card {
+  height: 140px; /* Fix card height */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
