@@ -66,3 +66,19 @@
     max-width: 100%; /* Allow columns to take full width */
   }
 }
+
+/* Tag styling inside the kanban card */
+.kanban-card-tag {
+  margin-top: 10px;
+}
+
+.kanban-card-tag-label {
+  background-color: #f0f4f8; /* Light background color for the tag */
+  color: #333;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 5px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-right: 5px;
+}
