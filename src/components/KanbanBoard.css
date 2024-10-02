@@ -7,13 +7,18 @@ body {
 
 .kanban-board {
   display: flex;
+  background-color: #f4f5f8;
   flex-direction: column;
   padding: 20px;
 }
 
 .display-options {
   position: relative;
+  background-color: #ffffff;
+  padding: 10px;
   margin-bottom: 20px;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
 }
 
 .display-button {
@@ -67,8 +72,11 @@ body {
 .kanban-column-header {
   display: flex;
   align-items: center;
+  padding: 10px;
+  background-color: #ffffff;
+  border-radius: 8px 8px 0 0;
+  margin-bottom: 10px;
   justify-content: space-between;
-  margin-bottom: 15px;
 }
 
 .priority-icon,
@@ -80,14 +88,14 @@ body {
 
 .user-icon {
   background-color: #ccc;
-  color: white;
+  color: #ffffff;
   width: 24px;
   height: 24px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .kanban-column h2 {
@@ -99,6 +107,13 @@ body {
 .header-icons span {
   margin-left: 10px;
   cursor: pointer;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.header-icons {
+  display: flex;
+  gap: 8px;
 }
 
 .kanban-cards {
@@ -108,10 +123,11 @@ body {
 }
 
 .kanban-card {
-  background-color: white;
+  background-color: #ffffff;
   border-radius: 8px;
-  padding: 15px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 12px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
   width: 100%;
   box-sizing: border-box;
 }
@@ -120,36 +136,44 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .ticket-id {
-  color: #666;
-  font-size: 14px;
+  color: #8d8d8d;
+  font-size: 12px;
 }
 
 .kanban-card h3 {
   font-size: 14px;
-  margin: 0 0 10px 0;
+  margin: 0 0 8px 0;
 }
 
 .card-footer {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .tag {
   background-color: #f4f5f8;
-  padding: 2px 5px;
+  padding: 2px 6px;
   border-radius: 4px;
   font-size: 12px;
+  color: #8d8d8d;
 }
 
 .kanban-column-header img.status-icon {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   margin-right: 8px;
+}
+
+.kanban-column-header h2 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  flex-grow: 1;
 }
 
 @media (max-width: 1400px) {

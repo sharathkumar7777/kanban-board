@@ -27,6 +27,8 @@ const priorityNames = {
   0: "No priority",
 };
 
+const allStatuses = ['Backlog', 'Todo', 'In progress', 'Done', 'Canceled'];
+
 const statusIcons = {
   "Todo": TodoIcon,
   "In progress": InProgressIcon,
@@ -62,7 +64,8 @@ function KanbanColumn({ tickets, users, grouping, ordering }) {
   };
 
   const groupedTickets = groupBy(grouping === 'user' ? 'userId' : grouping, tickets);
-  const priorityOrder = [4, 3, 2, 1, 0];
+  
+  const priorityOrder = [0, 4, 3, 2, 1];
 
   return (
     <div className="kanban-columns">
