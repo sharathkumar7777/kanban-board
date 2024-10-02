@@ -1,70 +1,58 @@
-# Getting Started with Create React App
+# Kanban Board Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is an interactive Kanban board application built using React JS. It fetches data from a provided API and allows users to group and sort tickets based on various criteria. The application is designed to be visually appealing and responsive.
 
-## Available Scripts
+## Table of Contents
 
-In the project directory, you can run:
+1. [Installation](#installation)
+2. [Running the Project](#running-the-project)
+3. [Features](#features)
+4. [Tech Stack](#tech-stack)
 
-### `npm start`
+## Installation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. **Clone the Repository**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+   ```
+   git clone https://github.com/rajpranavxc/kanban-board.git
+   ```
+2. **Install Packages**
 
-### `npm test`
+    ```
+    npm install
+    ```
+## Running the Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+    ```
+    npm start
+    ```
+    Project is live [here.](https://quicksell-kanban-board-pranav.vercel.app/)
 
-### `npm run build`
+## Features
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- **Dynamic Grouping**: Group tickets based on user selection:
+  - By Status
+  - By User
+  - By Priority
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Sorting Options**: Sort tickets in two ways:
+  - By Priority (descending order)
+  - By Title (ascending order)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- **Responsive Design**: The application is built to be visually appealing and responsive across different screen sizes.
 
-### `npm run eject`
+- **User State Persistence**: The application remembers the user's preferences for grouping and sorting even after page reloads.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- **Visual Consistency**: UI elements and ticket cards are designed to match the provided design specifications.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **API Integration**: Fetches ticket data from the specified API endpoint.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **Clean Code Structure**: Organized components for maintainability and reusability.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Pure CSS Styling**: Uses plain CSS for styling without any external CSS frameworks.
 
-## Learn More
+## Tech Stack
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- **React**: `^18.3.1`
+- **React DOM**: `^18.3.1`
+- **React Scripts**: `5.0.1`
