@@ -1,12 +1,20 @@
 import React from 'react';
 import KanbanCard from './KanbanCard';
+import DoneIcon from '../assets/icons/Done.svg';
+import InProgressIcon from '../assets/icons/in-progress.svg';
+import TodoIcon from '../assets/icons/To-do.svg';
+import NopriorityIcon from '../assets/icons/No-priority.svg';
+import LowIcon from '../assets/icons/img-low-priority.svg';
+import MediumIcon from '../assets/icons/img-medium-priority.svg';
+import HighIcon from '../assets/icons/img-high-priority.svg';
+import UrgentIcon from '../assets/icons/svg-urgent-priority-colour.svg';
 
 const priorityIcons = {
-  4: "🔴", // Urgent
-  3: "🔺", // High
-  2: "🟠", // Medium
-  1: "🔹", // Low
-  0: "⚪", // No priority
+  4: UrgentIcon,
+  3: HighIcon,
+  2: MediumIcon,
+  1: LowIcon,
+  0: NopriorityIcon,
 };
 
 const priorityNames = {
@@ -18,9 +26,9 @@ const priorityNames = {
 };
 
 const statusIcons = {
-  "Todo": "○",
-  "In progress": "◔",
-  "Done": "●",
+  "Todo": TodoIcon,
+  "In progress": InProgressIcon,
+  "Done": DoneIcon,
 };
 
 function KanbanColumn({ tickets, users, grouping, ordering }) {
@@ -54,7 +62,7 @@ function KanbanColumn({ tickets, users, grouping, ordering }) {
   const priorityOrder = [4, 3, 2, 1, 0];
 
   return (
-    <>
+    <div className="kanban-columns">
       {Object.keys(groupedTickets)
         .sort((a, b) => {
           if (grouping === 'priority') {
@@ -66,10 +74,10 @@ function KanbanColumn({ tickets, users, grouping, ordering }) {
           <div className="kanban-column" key={group}>
             <div className="kanban-column-header">
               {grouping === 'priority' && (
-                <span className="priority-icon">{priorityIcons[group]}</span>
+                <img src={priorityIcons[group]} alt="Priority" className="priority-icon" />
               )}
               {grouping === 'status' && (
-                <span className="status-icon">{statusIcons[group]}</span>
+                <img src={statusIcons[group]} alt="Status" className="status-icon" />
               )}
               {grouping === 'user' && (
                 <span className="user-icon">{group[0].toUpperCase()}</span>
@@ -87,7 +95,7 @@ function KanbanColumn({ tickets, users, grouping, ordering }) {
             </div>
           </div>
         ))}
-    </>
+    </div>
   );
 }
 
