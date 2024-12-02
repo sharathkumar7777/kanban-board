@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import KanbanColumn from "./KanbanColumn";
+import AddTaskModal from "./AddTaskModal";  // Import the AddTaskModal component
 import "./KanbanBoard.css";
 
 function KanbanBoard() {
@@ -8,13 +9,14 @@ function KanbanBoard() {
   const [grouping, setGrouping] = useState(localStorage.getItem("grouping") || "status");
   const [ordering, setOrdering] = useState(localStorage.getItem("ordering") || "priority");
   const [showOptions, setShowOptions] = useState(false);
+  const [showAddTaskModal, setShowAddTaskModal] = useState(false); // Modal visibility state
 
   useEffect(() => {
     fetch("https://api.quicksell.co/v1/internal/frontend-assignment")
       .then((response) => response.json())
       .then((data) => {
-        setTickets(data.tickets);
-        setUsers(data.users);
+        setTickets(data.tickets || []);
+        setUsers(data.users || []);
       });
   }, []);
 
@@ -33,6 +35,10 @@ function KanbanBoard() {
 
   const handleOrderingChange = (event) => {
     setOrdering(event.target.value);
+  };
+
+  const handleTaskAdd = (newTask) => {
+    setTickets((prevTickets) => [...prevTickets, newTask]);
   };
 
   return (
@@ -64,6 +70,29 @@ function KanbanBoard() {
       <div className="kanban-columns">
         <KanbanColumn tickets={tickets} users={users} grouping={grouping} ordering={ordering} />
       </div>
+
+      {/* Button to open Add Task Modal */}
+      <button
+        onClick={() => setShowAddTaskModal(true)}
+        className="add-task-button"
+      >
+        Add Task
+      </button>
+
+      {/* Add Task Modal */}
+      {showAddTaskModal && (
+        <>
+          <div
+            className="modal-overlay show"
+            onClick={() => setShowAddTaskModal(false)} // Close modal on overlay click
+          />
+          <AddTaskModal
+            users={users}
+            onTaskAdd={handleTaskAdd}
+            onClose={() => setShowAddTaskModal(false)} // Close modal from within modal
+          />
+        </>
+      )}
     </div>
   );
 }
