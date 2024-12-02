@@ -9,7 +9,13 @@ import HighIcon from '../assets/icons/img-high-priority.svg';
 import UrgentIcon from '../assets/icons/svg-urgent-priority-colour.svg';
 
 function KanbanCard({ ticket, users }) {
-  const user = users.find(u => u.id === ticket.userId);
+  // Preprocess users to create a map for quick lookup
+  const userMap = users.reduce((acc, user) => {
+    acc[user.id] = user;
+    return acc;
+  }, {});
+
+  const user = userMap[ticket.userId]; // Lookup the user by ticket's userId
 
   const getStatusIcon = (status) => {
     switch(status) {
@@ -34,13 +40,17 @@ function KanbanCard({ ticket, users }) {
     <div className="kanban-card">
       <div className="card-header">
         <span className="ticket-id">{ticket.id}</span>
-        {user && <span className="user-icon" style={{backgroundColor: user.available ? '#00FF00' : '#808080'}}>{user.name[0].toUpperCase()}</span>}
+        {user && (
+          <span className="user-icon" style={{backgroundColor: user.available ? '#00FF00' : '#808080'}}>
+            {user.name[0].toUpperCase()}
+          </span>
+        )}
       </div>
       <h3>{ticket.title}</h3>
       <div className="card-footer">
         <img src={getPriorityIcon(ticket.priority)} alt="Priority" className="priority-icon" />
         <img src={getStatusIcon(ticket.status)} alt="Status" className="status-icon" />
-        {ticket.tag.map((tag, index) => (
+        {ticket.tag && ticket.tag.map((tag, index) => (
           <span key={index} className="tag">⦿ {tag}</span>
         ))}
       </div>
