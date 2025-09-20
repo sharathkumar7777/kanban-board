@@ -14,25 +14,31 @@ This project is an interactive Kanban board application built using React JS. It
 1. **Clone the Repository**
 
    ```
-   git clone https://github.com/rajpranavxc/kanban-board.git
+   git clone https://github.com/sharathkumar7777/kanban-board.git
    ```
+
 2. **Install Packages**
 
-    ```
-    npm install
-    ```
+   ```
+   npm install
+   ```
+
 ## Running the Project
+
     npm start
-   Project is live [here.](https://quicksell-kanban-board-pranav.vercel.app/)
+
+Project is live [here.](https://quicksell-kanban-board-pranav.vercel.app/)
 
 ## Features
 
 - **Dynamic Grouping**: Group tickets based on user selection:
+
   - By Status
   - By User
   - By Priority
 
 - **Sorting Options**: Sort tickets in two ways:
+
   - By Priority (descending order)
   - By Title (ascending order)
 
